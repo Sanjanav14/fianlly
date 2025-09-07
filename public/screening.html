@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autism Screening Form</title>
+<h1> AUTSIM SCREENING QUESTIONARIES</h1>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to left, #74ebd5, #ACB6E5);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #6c5ce7;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5a4dba;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+ 
+      <h3>Screening Questions</h3>
+      <label for="q1">1. Does your child avoid eye contact?</label>
+      <select id="q1" name="q1" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="often">Often</option>
+        <option value="sometimes">Sometimes</option>
+        <option value="rarely">Rarely</option>
+        <option value="never">Never</option>
+      </select>
+
+      <label for="q2">2. Does your child have trouble understanding language?</label>
+      <select id="q2" name="q2" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="often">Often</option>
+        <option value="sometimes">Sometimes</option>
+        <option value="rarely">Rarely</option>
+        <option value="never">Never</option>
+      </select>
+
+      <label for="q3">3. Does your child engage in repetitive behaviors?</label>
+      <select id="q3" name="q3" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="often">Often</option>
+        <option value="sometimes">Sometimes</option>
+        <option value="rarely">Rarely</option>
+        <option value="never">Never</option>
+      </select>
+
+      <label for="q4">4. Does your child struggle with interacting with peers?</label>
+      <select id="q4" name="q4" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="often">Often</option>
+        <option value="sometimes">Sometimes</option>
+        <option value="rarely">Rarely</option>
+        <option value="never">Never</option>
+      </select>
+
+      <label for="q5">5. Does your child show a strong attachment to routines?</label>
+      <select id="q5" name="q5" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="often">Often</option>
+        <option value="sometimes">Sometimes</option>
+        <option value="rarely">Rarely</option>
+        <option value="never">Never</option>
+      </select>
+
+      
+<script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Clear previous error messages
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('ageError').innerText = '';
+
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value.trim();
+
+            // Email validation
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').innerText = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            // Age validation
+            if (age < 1 || age > 30) {
+                document.getElementById('ageError').innerText = 'Age must be between 1 and 30 years.';
+                isValid = false;
+            }
+
+            // Submit form if all validations pass
+            if (isValid) {
+                alert('Registration successful!');
+                // Uncomment the line below to send the form to the backend
+                // this.submit();
+            }
+        });
+    </script>
+<button type="button" onclick="calculateAutismLevel()">Submit</button>
+<div id="result" style="display:none; margin-top: 20px;">
+  <h2>Results</h2>
+  <p id="percentage"></p>
+  <p id="level"></p>
+  <p id="recommendations"></p>
+  <!-- Next Button -->
+  <button 
+    id="nextButton" 
+    style="
+      margin-top: 30px; 
+      padding: 10px 20px; 
+      background-color: #6c5ce7; 
+      color: white; 
+      border: none; 
+      border-radius: 5px; 
+      font-size: 1rem; 
+      cursor: pointer;
+    "
+    onclick="redirectToNextPage()"
+  >
+    more about ASD
+  </button>
+</div>
+
+<script>
+  // Function to redirect to the next page
+  function redirectToNextPage() {
+    window.location.href = "support.html"; // Change to your desired next page URL
+  }
+</script>
+
+    </form>
+
+
+    <div id="result" style="display:none; margin-top: 20px;">
+      <h2>Results</h2>
+      <p id="percentage"></p>
+      <p id="level"></p>
+      <p id="recommendations"></p>
+    </div>
+  </div>
+
+
+
+
+
+      <script>
+        function calculateAutismLevel() {
+          const points = { "often": 3, "sometimes": 2, "rarely": 1, "never": 0 };
+          let totalScore = 0;
+          const questions = ["q1", "q2", "q3", "q4", "q5"];
+      
+          // Iterate through the questions and calculate total score
+          for (const q of questions) {
+            const answer = document.getElementById(q).value;
+            if (answer) {
+              totalScore += points[answer];
+            } else {
+              alert("Please answer all questions!");
+              return;
+            }
+          }
+      
+          // Calculate percentage and determine level
+          const percentage = (totalScore / 15) * 100;
+          let level = "";
+          let recommendations = "";
+      
+          if (percentage >= 70) {
+            level = "Severe";
+            recommendations = "Consult a specialist. Focus on sensory toys, routines, and calming games.";
+          } else if (percentage >= 40) {
+            level = "Moderate";
+            recommendations = "Try picture games, music, and interactive activities.";
+          } else {
+            level = "Mild";
+            recommendations = "Encourage group play, storytelling, and creative activities.";
+          }
+      
+          // Send data to the server to save it in the database
+          const userId = 1; // Example user ID, replace with dynamic user ID in production
+      
+          fetch('/submit_screening', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `userId=${userId}&q1=${document.getElementById('q1').value}&q2=${document.getElementById('q2').value}&q3=${document.getElementById('q3').value}&q4=${document.getElementById('q4').value}&q5=${document.getElementById('q5').value}`
+          })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById("percentage").innerText = `Score Percentage: ${data.percentage}%`;
+            document.getElementById("level").innerText = `Autism Level: ${data.level}`;
+            document.getElementById("recommendations").innerText = `Recommendations: ${data.recommendations}`;
+            document.getElementById("result").style.display = "block";
+          })
+          .catch(error => console.error('Error:', error));
+
+
+          function calculateAutismLevel() {
+            const points = { "often": 3, "sometimes": 2, "rarely": 1, "never": 0 };
+            let totalScore = 0;
+            const questions = ["q1", "q2", "q3", "q4", "q5"];
+        
+            // Iterate through the questions and calculate total score
+            for (const q of questions) {
+                const answer = document.getElementById(q).value;
+                if (answer) {
+                    totalScore += points[answer];
+                } else {
+                    alert("Please answer all questions!");
+                    return;
+                }
+            }
+        
+            // Submit data to the server
+            fetch('/submit_screening', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    userId: 1, // Replace with dynamic user ID
+                    q1: document.getElementById('q1').value,
+                    q2: document.getElementById('q2').value,
+                    q3: document.getElementById('q3').value,
+                    q4: document.getElementById('q4').value,
+                    q5: document.getElementById('q5').value
+                })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    document.getElementById("percentage").innerText = `Score Percentage: ${data.percentage.toFixed(2)}%`;
+                    document.getElementById("level").innerText = `Autism Level: ${data.level}`;
+                    document.getElementById("recommendations").innerText = `Recommendations: ${data.recommendations}`;
+                    document.getElementById("result").style.display = "block";
+                })
+                .catch((error) => console.error('Error:', error));
+        }
+        
+        }
+      </script>
+
+</body>
+</html>
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #006D77, #83C5BE); /* Teal to Soft Mint */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #1E3A8A, #F9A8D4); /* Dark Blue and Pink Gradient */
+          }
+          
+          
+        /* Form Container */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff; /* White background for form */
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Heading */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #006D77; /* Teal */
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: yellow; /* Golden Yellow */
+            box-shadow: 0 0 5px rgba(255, 183, 3, 0.5);
+            outline: none;
+        }
+
+        /* Submit Button */
+        button.submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #FFB703, #FFD166); /* Golden Gradient */
+            color: #ffffff; /* White text */
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button.submit-btn:hover {
+            background: linear-gradient(135deg, #FFD166, #FFB703); /* Reverse Gradient */
+        }
+
+        /* Links and Additional Text */
+        p {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        p a {
+            color: #FFB703; /* Golden Yellow */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Messages */
+        .error {
+            color: #E63946; /* Red for errors */
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .form-group input {
+                font-size: 12px;
+            }
+
+            button.submit-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+
+<div class="container">
+    <h2>Registration Form</h2>
+    <form id="register-form" action="/register" method="POST" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <div id="email-error" class="error"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+            <div id="password-error" class="error"></div>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+        </div>
+        <button type="submit" class="submit-btn">Register</button>
+        
+       
+        
+    </form>
+</div>
+
+<script>
+     
+    function validateForm() {
+        // Clear previous error messages
+        document.getElementById("email-error").innerText = "";
+        document.getElementById("password-error").innerText = "";
+
+        // Get form values
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Email validation: Basic email pattern
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById("email-error").innerText = "Please enter a valid email address.";
+            return false;
+        }
+
+        // Password validation: Must be exactly 8 characters
+        if (password.length !== 8) {
+            document.getElementById("password-error").innerText = "Password must be exactly 8 characters long.";
+            return false;
+        }
+
+        // If all validations pass
+        return true;
+    }
+</script>
+
+</body>
+</html>
