@@ -22,3 +22,9 @@ Results are displayed:
 Percentage likelihood of autism
 Severity level
 Recommended activities
+
+Tech Stack
+Frontend: HTML, CSS, JavaScript
+Backend: Node.js 
+Data Handling: Custom logic for result calculation
+Hosting: GitHub Pages / Local server
